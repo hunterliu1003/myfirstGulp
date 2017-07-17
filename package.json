@@ -12,7 +12,10 @@
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^2.1.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-less": "^3.3.2",
+    "gulp-minify-css": "^1.2.4"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

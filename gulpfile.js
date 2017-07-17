@@ -5,6 +5,8 @@ var gulp = require('gulp'),               // 載入 gulp
     gulpPlumber = require('gulp-plumber'),// 載入 gulp-plumber
     // gulpLivereload = require('gulp-livereload');  // 載入 gulp-livereload
     gulpNotify = require('gulp-notify');
+    gulpLess = require('gulp-less');
+    gulpCssmin = require('gulp-minify-css');
 
 gulp.task('connect', function() {
   gulpConnect.server({
@@ -22,6 +24,7 @@ gulp.task('watch', function () {
     gulp.watch('javascript/original/*.js', ['scripts', 'html']);
     gulp.watch('scss/**/*.scss', ['styles', 'html']);
     gulp.watch(['*.html'], ['html']);
+    gulp.watch('less/**/*.less',['less', 'html']);
 });
 
 gulp.task('scripts', function () {
@@ -42,6 +45,15 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('css'))  // 指定編譯後的 css 檔案目錄
         .pipe(gulpNotify({ message: 'Styles task complete' }));
         // .pipe(gulpLivereload());  // 當檔案異動後自動重新載入頁面
+});
+
+
+gulp.task('less', function () {
+    gulp.src('less/**/*.less')
+        .pipe(gulpLess())
+        .pipe(gulpCssmin()) //兼容IE7及以下需设置compatibility属性 .pipe(cssmin({compatibility: 'ie7'}))
+        .pipe(gulp.dest('css'));
+        .pipe(gulpNotify({ message: 'Less task complete' }));
 });
 
 
