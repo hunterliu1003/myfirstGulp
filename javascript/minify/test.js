@@ -1,0 +1,1 @@
+var gulp=require("gulp"),gulpUglify=require("gulp-uglify");gulp.task("watch",function(){gulp.watch("javascript/original/*.js",["scripts"])}),gulp.task("scripts",function(){gulp.src("javascript/original/*.js").pipe(gulpUglify()).pipe(gulp.dest("javascript/minify"))});
