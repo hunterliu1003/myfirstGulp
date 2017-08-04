@@ -14,7 +14,6 @@ gulp.task('connect', function() {
     root: '',
     port: 8080,
     livereload: true
-
   });
 });
 

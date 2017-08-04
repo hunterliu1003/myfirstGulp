@@ -40,7 +40,7 @@
   });
 ```
 
-## gulp-minify-css
+## gulp-clean-css
   - 將 css 壓縮成 .min.css。
   ```javascript
     var gulpCleanCss = require('gulp-clean-css');
@@ -48,7 +48,7 @@
     gulp.task('less', function() {
     gulp.src('style/less/*.less')
       .pipe(gulpLess())
-      .pipe(gulpCleanCss())  //將 .css 檔壓縮成 .min.css 檔。
+      .pipe(gulpCleanCss())  //將 .css 檔壓縮。
       .pipe(gulp.dest('style/css'))  //指定檔案位址。
     });
 
@@ -63,7 +63,7 @@
 
     gulp.task('scripts', function() {
       gulp.src('javascript/original/*.js') //指定 javascript/original 中所有 .js 的檔案。
-        .pipe(gulpUglify())  //將 .css 檔壓縮成 .min.js 檔。
+        .pipe(gulpUglify())  //將 .css 檔壓縮。
         .pipe(gulp.dest('javascript/minify'))  //指定檔案位址。
     });
 
@@ -106,6 +106,36 @@
     gulp.task('scripts', function() {
     gulp.src('javascript/original/*.js')
       .pipe(gulpPlumber())  //檢查 javascript/original 下所有 .js 檔案的可能錯誤。
+    });
+
+    gulp.task('watch', function() {
+      gulp.watch('javascript/original/*.js', ['scripts']);
+      //監看 javascript/original 中所有 .js 的檔案有任何異動，執行 ['scripts'] 這個 task。
+    });
+  ```
+
+## gulp-sourcemaps
+    JavaScript變得越來越複雜。大部分源碼都要經過轉換，才能投入生產環境。
+		常見的源碼轉換，主要是以下三種情況：
+	　　（1）壓縮，減小體積。
+	　　（2）多個文件合併，減少HTTP請求數。
+	　　（3）其他語言編譯成JavaScript。例如：CoffeeScript。
+		這三種情況將使得實際運行的代碼不同於開發的代碼。舉例來說 CSS壓縮後只有1行。你看著報錯信息根本不知道它所對應的原始位置。
+		這就是Source map想要解決的問題。
+  ```javascript
+    gulpSourcemaps = require('gulp-sourcemaps');
+
+    gulp.task('scripts', function() {
+      gulp.src('./javascript/original/*.js')
+        .pipe(gulpSourcemaps.init({loadMaps: true}))
+        .pipe(gulpBabel({
+          presets: ['es2015']
+        }))
+        .pipe(gulpPlumber())
+        .pipe(gulpUglify())
+        .pipe(gulpSourcemaps.write('./'))
+        .pipe(gulp.dest('./javascript/minify'))
+        .pipe(gulpConnect.reload());
     });
 
     gulp.task('watch', function() {
