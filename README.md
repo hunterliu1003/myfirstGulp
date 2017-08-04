@@ -22,8 +22,7 @@
 
 # 套件介紹
 
-## gulp-less
-<a href="https://www.npmjs.com/package/gulp-less"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-less.svg?style=flat"/></a>
+## gulp-less <a href="https://www.npmjs.com/package/gulp-less"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-less.svg?style=flat"/></a>
   - 將 less 編譯成 css。
 ```javascript
   var gulp = require('gulp'),
