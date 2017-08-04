@@ -144,7 +144,7 @@ npm install --save-dev gulp-babel babel-preset-es2015
   gulp.task('scripts', function() {
     gulp.src('./javascript/original/*.js')
       .pipe(gulpBabel({
-        presets: ['es2015']
+        presets: ['es2015'] //預設將es2015(即ES6)轉換成 ES5。
       }))
       .pipe(gulpPlumber())
       .pipe(gulpUglify())
@@ -154,7 +154,6 @@ npm install --save-dev gulp-babel babel-preset-es2015
 
   gulp.task('watch', function() {
     gulp.watch('javascript/original/*.js', ['scripts']);
-    //監看 javascript/original 中所有 .js 的檔案有任何異動，執行 ['scripts'] 這個 task。
   });
 ```
 
@@ -189,6 +188,5 @@ CSS 和 JavaScript 變得越來越複雜。大部分源碼都要經過轉換，�
 
   gulp.task('watch', function() {
     gulp.watch('javascript/original/*.js', ['scripts']);
-    //監看 javascript/original 中所有 .js 的檔案有任何異動，執行 ['scripts'] 這個 task。
   });
 ```

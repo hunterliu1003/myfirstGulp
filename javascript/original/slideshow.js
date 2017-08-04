@@ -35,7 +35,7 @@
           `;
           this.$obj.find('.js-slideshow-list').append(HTML);
         };
-        
+
         this.$obj.find('.js-slideshow').css({
           'width': config.width + 'px'
         });

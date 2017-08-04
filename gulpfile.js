@@ -24,7 +24,7 @@ gulp.task('html', function() {
 
 gulp.task('less', function() {
   gulp.src('style/less/*.less')
-    .pipe(gulpSourcemaps.init({loadMaps: true}))
+    .pipe(gulpSourcemaps.init())
     .pipe(gulpLess())
     .pipe(gulpCleanCss())
     .pipe(gulpSourcemaps.write('./'))
@@ -34,7 +34,7 @@ gulp.task('less', function() {
 
 gulp.task('scripts', function() {
   gulp.src('./javascript/original/*.js')
-    .pipe(gulpSourcemaps.init({loadMaps: true}))
+    .pipe(gulpSourcemaps.init())
     .pipe(gulpBabel({
       presets: ['es2015']
     }))
