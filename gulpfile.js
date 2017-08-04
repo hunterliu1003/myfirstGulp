@@ -9,7 +9,6 @@ var gulp = require('gulp'),
   gulpSourcemaps = require('gulp-sourcemaps'),
   gulpBabel = require('gulp-babel');
 
-
 gulp.task('connect', function() {
   gulpConnect.server({
     root: '',
