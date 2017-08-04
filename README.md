@@ -137,7 +137,7 @@
 npm install --save-dev gulp-babel babel-preset-es2015
 ```
 
-> 將 ES6 轉換成。
+> 將 ES6 轉換成 ES5。
 
 ```javascript
   var gulpBabel = require('gulp-babel');
