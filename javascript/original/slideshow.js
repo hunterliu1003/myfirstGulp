@@ -1,6 +1,6 @@
 (function($) {
   $.fn.slideshow = function(opts) {
-    var config = $.extend({}, {
+    let config = $.extend({}, {
       imgPerPage: 4,
       border: 5,
       width: 500,
@@ -12,7 +12,6 @@
       nextSlideshow: null,
       imgOnClick: null,
       slideTo: null,
-      getPage: null,
       onSlide: null
     }, opts);
 
@@ -24,22 +23,26 @@
 
     Slideshow.prototype = {
       init: function(obj) {
-        var _this = this;
+        let _this = this;
         this.$obj = obj;
+        let HTML = '';
         for (let i = 0; i < this.slideshowLength; i++) {
-          let HTML = '';
           HTML += `
             <li class="js-slideshow-item">
-              <img class="js-slideshow-item-img" src="${config.imgs[i].url}" alt="${config.imgs[i].name}" data-id="${i}">
+              <img class="js-slideshow-item-img slideshow-item-img" src="${config.imgs[i].url}" alt="${config.imgs[i].name}" data-id="${i}">
             </li>
           `;
-          this.$obj.find('.js-slideshow-list').append(HTML);
         };
-
-        this.$obj.find('.js-slideshow').css({
-          'width': config.width + 'px'
+        this.$obj.find('.js-slideshow-list').append(HTML);
+        this.$obj.css({
+          'width': config.width + 'px',
+          'margin': '0 auto',
+          'overflow': 'hidden'
         });
-
+        this.$obj.find($('.js-slideshow-item-img')).css({
+          'width': '100%',
+          'display': 'block'
+        });
         this.$obj.find('.js-slideshow-list').css({
           'width': config.width / config.imgPerPage * config.imgs.length + 'px'
         });
@@ -51,11 +54,11 @@
           this.index = config.index;
           _this.slideTo(this.index);
         };
-        this.$obj.find('.js-slideshow-left').click(function(e) {
+        this.$obj.find('.js-slideshow-prev').click(function(e) {
           e.preventDefault();
           _this.prevSlideshow();
         });
-        this.$obj.find('.js-slideshow-right').click(function(e) {
+        this.$obj.find('.js-slideshow-next').click(function(e) {
           e.preventDefault();
           _this.nextSlideshow();
         });
@@ -96,9 +99,6 @@
           if (this.index >= this.slideshowLength - config.imgPerPage) {
             this.index = 0;
             this.slideTo(this.index);
-          } else if (this.getPage(this.index) === this.getPage(this.slideshowLength) - 1) {
-            this.index = this.slideshowLength - config.imgPerPage;
-            this.slideTo(this.index);
           } else {
             this.index = (this.getPage(this.index) + 1) * config.imgPerPage;
             this.slideTo(this.index);
@@ -106,7 +106,7 @@
         }
       },
       slideTo: function(index) {
-        var self = this;
+        let self = this;
         if (typeof config.slideTo === 'function') {
           config.slideTo();
         } else {
@@ -140,16 +140,12 @@
         }
       },
       getPage: function(index) {
-        if (typeof config.getPage === 'function') {
-          config.getPage();
-        } else {
-          return Math.floor(index / config.imgPerPage);
-        }
+        return Math.floor(index / config.imgPerPage);
       }
     }
 
     return this.each(function() {
-      var $target = $(this),
+      let $target = $(this),
         instance = $target.data('slideshow');
       if (!instance) {
         instance = new Slideshow();
@@ -162,7 +158,6 @@
 
 })(jQuery);
 
-
 var imgSlider, thumbnailSlider;
 
 $('.js-module-slideshow').slideshow({
@@ -172,7 +167,7 @@ $('.js-module-slideshow').slideshow({
   width: 500,
   selectBorder: true,
   slideSpeed: 150,
-    onSlide: function(index) {
+  onSlide: function(index) {
     if (thumbnailSlider.index !== imgSlider.index) {
       thumbnailSlider.slideTo(index);
       thumbnailSlider.index = index;
