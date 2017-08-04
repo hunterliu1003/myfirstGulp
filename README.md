@@ -130,7 +130,7 @@
 ```
 
 ## gulp-babel <a href="https://www.npmjs.com/package/gulp-babel"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-babel.svg?style=flat"/></a>
-
+![NPM Version](https://img.shields.io/npm/v/gulp-babel.svg?style=flat)
 ### install
 
 ```javascript
