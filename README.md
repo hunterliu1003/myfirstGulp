@@ -23,7 +23,7 @@
 # 套件介紹
 
 ## gulp-less
-<a href="https://www.npmjs.com/package/gulp-less"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-less.svg?style=flat"/></a>
+<a style="float: left;" href="https://www.npmjs.com/package/gulp-less"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-less.svg?style=flat"/></a>
   - 將 less 編譯成 css。
 ```javascript
   var gulp = require('gulp'),
@@ -42,7 +42,7 @@
 ```
 
 ## gulp-clean-css
-<a href="https://www.npmjs.com/package/gulp-clean-css"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-clean-css.svg?style=flat"/></a>
+<a style="float: left;" href="https://www.npmjs.com/package/gulp-clean-css"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-clean-css.svg?style=flat"/></a>
   - 將 css 壓縮成 .min.css。
   ```javascript
     var gulpCleanCss = require('gulp-clean-css');
@@ -59,7 +59,7 @@
   });
   ```
 ## gulp-uglify
-<a href="https://www.npmjs.com/package/gulp-uglify"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-uglify.svg?style=flat"/></a>
+<a style="float: left;" href="https://www.npmjs.com/package/gulp-uglify"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-uglify.svg?style=flat"/></a>
   - 將 javascript 壓縮成 .min.js。
   ```javascript
     var gulpUglify = require('gulp-uglify');
@@ -76,7 +76,7 @@
     });
   ```
 ## gulp-connect
-<a href="https://www.npmjs.com/package/gulp-connect"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-connect.svg?style=flat"/></a>
+<a style="float: left;" href="https://www.npmjs.com/package/gulp-connect"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-connect.svg?style=flat"/></a>
   - 實現 livereload 功能。
   ```javascript
     gulpConnect = require('gulp-connect');
@@ -103,7 +103,7 @@
     //將 task ['connect'] 加入 gulp default task。
   ```
 ## gulp-plumber
-<a href="https://www.npmjs.com/package/gulp-plumber"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-plumber.svg?style=flat"/></a>
+<a style="float: left;" href="https://www.npmjs.com/package/gulp-plumber"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-plumber.svg?style=flat"/></a>
   - 例外處理，提示程式 bug。
   ```javascript
     var gulpPlumber = require('gulp-plumber');
@@ -119,7 +119,7 @@
     });
   ```
 ## gulp-babel
-<a href="https://www.npmjs.com/package/gulp-babel"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-babel.svg?style=flat"/></a>
+<a style="float: left;" href="https://www.npmjs.com/package/gulp-babel"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-babel.svg?style=flat"/></a>
 
 	將 ES6 轉換 ES5。
 
@@ -150,7 +150,7 @@
 
 
 ## gulp-sourcemaps
-<a href="https://www.npmjs.com/package/gulp-sourcemaps"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-sourcemaps.svg?style=flat"/></a>
+<a style="float: left;" href="https://www.npmjs.com/package/gulp-sourcemaps"><img alt="NPM Version" src="https://img.shields.io/npm/v/gulp-sourcemaps.svg?style=flat"/></a>
 
 CSS 和 JavaScript 變得越來越複雜。大部分源碼都要經過轉換，才能投入生產環境。
 常見的源碼轉換，主要是以下三種情況：
