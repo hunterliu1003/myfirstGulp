@@ -22,7 +22,7 @@
 
 # 套件介紹
 
-## gulp-less
+## [gulp-less](https://www.npmjs.com/package/gulp-less)
   - 將 less 編譯成 css。
 ```javascript
   var gulp = require('gulp'),
@@ -40,7 +40,7 @@
   });
 ```
 
-## gulp-clean-css
+## [gulp-clean-css](https://www.npmjs.com/package/gulp-clean-css)
   - 將 css 壓縮成 .min.css。
   ```javascript
     var gulpCleanCss = require('gulp-clean-css');
@@ -56,7 +56,7 @@
     gulp.watch('style/less/*.less', ['less']);
   });
   ```
-## gulp-uglify
+## [gulp-uglify](https://www.npmjs.com/package/gulp-uglify)
   - 將 javascript 壓縮成 .min.js。
   ```javascript
     var gulpUglify = require('gulp-uglify');
@@ -72,7 +72,7 @@
       //監看 javascript/original 中所有 .js 的檔案有任何異動，執行 ['scripts'] 這個 task。
     });
   ```
-## gulp-connect
+## [gulp-connect](https://www.npmjs.com/package/gulp-connect)
   - 實現 livereload 功能。
   ```javascript
     gulpConnect = require('gulp-connect');
@@ -98,7 +98,7 @@
     gulp.task('default', ['connect', 'watch']);
     //將 task ['connect'] 加入 gulp default task。
   ```
-## gulp-plumber
+## [gulp-plumber](https://www.npmjs.com/package/gulp-plumber)
   - 例外處理，提示程式 bug。
   ```javascript
     var gulpPlumber = require('gulp-plumber');
@@ -113,22 +113,51 @@
       //監看 javascript/original 中所有 .js 的檔案有任何異動，執行 ['scripts'] 這個 task。
     });
   ```
+## [gulp-babel](https://www.npmjs.com/package/gulp-babel)
 
-## gulp-sourcemaps
+	將 ES6 轉換 ES5。
 
-JavaScript變得越來越複雜。大部分源碼都要經過轉換，才能投入生產環境。
+	### install
+	```javascript
+	npm install --save-dev gulp-babel babel-preset-es2015
+	```
+	  - 將 ES6 轉換成。
+  ```javascript
+    var gulpBabel = require('gulp-babel');
+
+    gulp.task('scripts', function() {
+      gulp.src('./javascript/original/*.js')
+        .pipe(gulpBabel({
+          presets: ['es2015']
+        }))
+        .pipe(gulpPlumber())
+        .pipe(gulpUglify())
+        .pipe(gulp.dest('./javascript/minify'))
+        .pipe(gulpConnect.reload());
+    });
+
+    gulp.task('watch', function() {
+      gulp.watch('javascript/original/*.js', ['scripts']);
+      //監看 javascript/original 中所有 .js 的檔案有任何異動，執行 ['scripts'] 這個 task。
+    });
+  ```
+
+
+## [gulp-sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps)
+
+CSS 和 JavaScript 變得越來越複雜。大部分源碼都要經過轉換，才能投入生產環境。
 常見的源碼轉換，主要是以下三種情況：
 
-	-壓縮，減小體積。
-	-多個文件合併，減少HTTP請求數。
-	-其他語言編譯成JavaScript。例如：CoffeeScript。
+	- 壓縮，減小體積。
+	- 多個文件合併，減少HTTP請求數。
+	- 其他語言編譯成 CSS 或 JavaScript。
 
 這三種情況將使得實際運行的代碼不同於開發的代碼。
-舉例來說 CSS壓縮後只有1行。你看著報錯信息根本不知道它所對應的原始位置。
+舉例來說代碼壓縮後只有1行，你看著錯誤信息根本不知道它所對應的原始位置。
 這就是Source map想要解決的問題。
 
   ```javascript
-    gulpSourcemaps = require('gulp-sourcemaps');
+    var gulpSourcemaps = require('gulp-sourcemaps');
 
     gulp.task('scripts', function() {
       gulp.src('./javascript/original/*.js')
