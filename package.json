@@ -12,6 +12,7 @@
     "gulp-connect": "^5.0.0",
     "gulp-less": "^3.3.2",
     "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^2.1.2"
   },

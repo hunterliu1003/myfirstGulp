@@ -7,8 +7,19 @@ var gulp = require('gulp'),
   gulpUglify = require('gulp-uglify'),
   gulpPlumber = require('gulp-plumber'),
   gulpSourcemaps = require('gulp-sourcemaps'),
-  gulpBabel = require('gulp-babel');
+  gulpBabel = require('gulp-babel'),
+  gulpRename = require('gulp-rename');
 
+var config = {
+  styles: {
+    src: 'style/less/*.less',
+    dest: 'style/css'
+  },
+  scripts: {
+    src: 'js/original/*.js',
+    dest: 'js/minify'
+  }
+}
 gulp.task('connect', function() {
   gulpConnect.server({
     root: '',
@@ -23,17 +34,18 @@ gulp.task('html', function() {
 });
 
 gulp.task('less', function() {
-  gulp.src('style/less/*.less')
+  gulp.src(config.styles.src)
     .pipe(gulpSourcemaps.init())
     .pipe(gulpLess())
     .pipe(gulpCleanCss())
     .pipe(gulpSourcemaps.write('./'))
-    .pipe(gulp.dest('style/css'))
+    .pipe(gulpRename({suffix: '.min'}))
+    .pipe(gulp.dest(config.styles.dest))
     .pipe(gulpConnect.reload());
 });
 
 gulp.task('scripts', function() {
-  gulp.src('./javascript/original/*.js')
+  gulp.src(config.scripts.src)
     .pipe(gulpSourcemaps.init())
     .pipe(gulpBabel({
       presets: ['es2015']
@@ -41,14 +53,15 @@ gulp.task('scripts', function() {
     .pipe(gulpPlumber())
     .pipe(gulpUglify())
     .pipe(gulpSourcemaps.write('./'))
-    .pipe(gulp.dest('./javascript/minify'))
+    .pipe(gulpRename({suffix: '.min'}))
+    .pipe(gulp.dest(config.scripts.dest))
     .pipe(gulpConnect.reload());
 });
 
 gulp.task('watch', function() {
-  gulp.watch('./javascript/original/*.js', ['scripts']);
   gulp.watch(['*.html'], ['html']);
-  gulp.watch('style/less/*.less', ['less']);
+  gulp.watch(config.styles.src, ['less']);
+  gulp.watch(config.scripts.src, ['scripts']);
 });
 
 gulp.task('default', ['connect', 'watch']);
