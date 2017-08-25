@@ -38,22 +38,22 @@ gulp.task('less', function() {
     .pipe(gulpSourcemaps.init())
     .pipe(gulpLess())
     .pipe(gulpCleanCss())
-    .pipe(gulpSourcemaps.write('./'))
     .pipe(gulpRename({suffix: '.min'}))
+    .pipe(gulpSourcemaps.write('./'))
     .pipe(gulp.dest(config.styles.dest))
     .pipe(gulpConnect.reload());
 });
 
 gulp.task('scripts', function() {
   gulp.src(config.scripts.src)
+    .pipe(gulpPlumber())
     .pipe(gulpSourcemaps.init())
     .pipe(gulpBabel({
       presets: ['es2015']
     }))
-    .pipe(gulpPlumber())
     .pipe(gulpUglify())
-    .pipe(gulpSourcemaps.write('./'))
     .pipe(gulpRename({suffix: '.min'}))
+    .pipe(gulpSourcemaps.write('./'))
     .pipe(gulp.dest(config.scripts.dest))
     .pipe(gulpConnect.reload());
 });
