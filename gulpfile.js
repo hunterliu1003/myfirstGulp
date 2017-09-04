@@ -46,8 +46,8 @@ gulp.task('less', function() {
 
 gulp.task('scripts', function() {
   gulp.src(config.scripts.src)
-    .pipe(gulpPlumber())
     .pipe(gulpSourcemaps.init())
+    .pipe(gulpPlumber())
     .pipe(gulpBabel({
       presets: ['es2015']
     }))
