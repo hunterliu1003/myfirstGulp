@@ -2,24 +2,12 @@
 
 var gulp = require('gulp'),
   gulpConnect = require('gulp-connect'),
-  gulpLess = require('gulp-less'),
-  gulpCleanCss = require('gulp-clean-css'),
-  gulpUglify = require('gulp-uglify'),
-  gulpPlumber = require('gulp-plumber'),
-  gulpSourcemaps = require('gulp-sourcemaps'),
-  gulpBabel = require('gulp-babel'),
-  gulpRename = require('gulp-rename');
+  gulpInlineCss = require('gulp-inline-css'),
+  gulpHtmlMin = require('gulp-htmlmin'),
+  gulpReplace = require('gulp-replace'),
+  siphon = require('siphon-media-query'),
+  fs = require('fs');
 
-var config = {
-  styles: {
-    src: 'style/less/*.less',
-    dest: 'style/css'
-  },
-  scripts: {
-    src: 'js/original/*.js',
-    dest: 'js/minify'
-  }
-}
 gulp.task('connect', function() {
   gulpConnect.server({
     root: '',
@@ -30,38 +18,25 @@ gulp.task('connect', function() {
 
 gulp.task('html', function() {
   gulp.src('*.html')
-    .pipe(gulpConnect.reload());
-});
-
-gulp.task('less', function() {
-  gulp.src(config.styles.src)
-    .pipe(gulpSourcemaps.init())
-    .pipe(gulpLess())
-    .pipe(gulpCleanCss())
-    .pipe(gulpRename({suffix: '.min'}))
-    .pipe(gulpSourcemaps.write('./'))
-    .pipe(gulp.dest(config.styles.dest))
-    .pipe(gulpConnect.reload());
-});
-
-gulp.task('scripts', function() {
-  gulp.src(config.scripts.src)
-    .pipe(gulpSourcemaps.init())
-    .pipe(gulpPlumber())
-    .pipe(gulpBabel({
-      presets: ['es2015']
+    .pipe(gulpInlineCss({preserveMediaQueries:true}))
+    .pipe(gulpReplace('<!-- <style> -->', '<style>\n'+inliner('style/css/rt-foundation-emails.css')+'\n</style>'))
+    .pipe(gulpHtmlMin({
+      collapseWhitespace: true,
+      minifyCSS: true
     }))
-    .pipe(gulpUglify())
-    .pipe(gulpRename({suffix: '.min'}))
-    .pipe(gulpSourcemaps.write('./'))
-    .pipe(gulp.dest(config.scripts.dest))
+    .pipe(gulp.dest('build/'))
+
     .pipe(gulpConnect.reload());
 });
+
+function inliner(css) {
+  var css = fs.readFileSync(css).toString();
+  var mqcss = siphon(css);
+  return mqcss;
+}
 
 gulp.task('watch', function() {
   gulp.watch(['*.html'], ['html']);
-  gulp.watch(config.styles.src, ['less']);
-  gulp.watch(config.scripts.src, ['scripts']);
 });
 
 gulp.task('default', ['connect', 'watch']);
